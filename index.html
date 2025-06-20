@@ -41,42 +41,43 @@
         </a>
     </div>
 
-    <!-- Profile Picture Section -->
-    <section class="profile-section">
-        <div class="profile-image-container">
-            <img id="profileImage" 
-                 src="https://via.placeholder.com/200x200/1a1a2e/00d4ff?text=Your+Photo" 
-                 alt="Profile Picture" 
-                 class="profile-image">
-            <div class="profile-overlay">
-                <i class="fas fa-camera upload-icon"></i>
-            </div>
-            <input type="file" 
-                   id="imageUpload" 
-                   class="file-input" 
-                   accept="image/*">
-        </div>
-    </section>
-
-    <!-- Hero Section -->
+    <!-- Hero Section with Profile -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <p class="hero-greeting">Hello, I'm</p>
-            <h1 class="hero-name">Anusha Manujaya</h1>
-            <h2 class="hero-title">I'm a <span class="typing-text">Full-Stack Developer</span></h2>
-            <p class="hero-description">
-                Passionate about building seamless, efficient, and user-friendly web applications. 
-                I love turning ideas into reality through clean, scalable code and innovative solutions.
-            </p>
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">
-                    <i class="fas fa-rocket"></i>
-                    View My Work
-                </a>
-                <a href="#contact" class="btn btn-secondary">
-                    <i class="fas fa-message"></i>
-                    Let's Talk
-                </a>
+        <div class="hero-container">
+            <div class="hero-content">
+                <p class="hero-greeting">Hello, I'm</p>
+                <h1 class="hero-name">Anusha Manujaya</h1>
+                <h2 class="hero-title">I'm a <span class="typing-text">Full-Stack Developer</span></h2>
+                <p class="hero-description">
+                    Passionate about building seamless, efficient, and user-friendly web applications. 
+                    I love turning ideas into reality through clean, scalable code and innovative solutions.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        View My Work
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-message"></i>
+                        Let's Talk
+                    </a>
+                    <button onclick="downloadCV()" class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Download CV
+                    </button>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <div class="profile-image-container">
+                    <img id="profileImage" 
+                         src="./images/pic.jpg" 
+                         alt="Profile Picture" 
+                         class="profile-image">
+                    <div class="profile-overlay">
+                        <span style="font-size: 25px;">👨‍💻⌨️💡</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -228,7 +229,7 @@
                         <i class="fas fa-envelope"></i>
                         <div>
                             <strong>Email</strong>
-                            <p>anushamanujaya@example.com</p>
+                            <p>anushmanuja@gmail.com</p>
                         </div>
                     </div>
                     
@@ -236,7 +237,7 @@
                         <i class="fas fa-phone"></i>
                         <div>
                             <strong>Phone</strong>
-                            <p>+94 XX XXX XXXX</p>
+                            <p>+94 78 754 1191</p>
                         </div>
                     </div>
                     
@@ -244,12 +245,12 @@
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <strong>Location</strong>
-                            <p>Colombo, Sri Lanka</p>
+                            <p>Homagama, Sri Lanka</p>
                         </div>
                     </div>
                 </div>
                 
-                <form class="contact-form">
+                <form class="contact-form" action="https://formspree.io/f/xzzgagwo" method="POST">
                     <div class="form-group">
                         <label for="name">Full Name</label>
                         <input type="text" id="name" name="name" required>
@@ -282,7 +283,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Anusha Manujaya. All rights reserved. Built with 💙 and lots of coffee.</p>
+            <p>&copy; 2025 Anusha Manujaya. All rights reserved.</p>
         </div>
     </footer>
 
