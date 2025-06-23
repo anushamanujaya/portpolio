@@ -65,7 +65,7 @@ document.querySelectorAll('.section').forEach(section => {
     observer.observe(section);
 });
 
-// UPDATED: Form submission with Formspree integration
+// Form submission with Formspree integration
 document.querySelector('.contact-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -135,7 +135,7 @@ document.querySelector('.contact-form').addEventListener('submit', async (e) => 
     }, 3000);
 });
 
-// Add notification system
+// Notification system
 function showNotification(message, type = 'info') {
     // Remove existing notification
     const existingNotification = document.querySelector('.notification');
@@ -161,7 +161,9 @@ function showNotification(message, type = 'info') {
         position: fixed;
         top: 20px;
         right: 20px;
-        background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : type === 'error' ? 'linear-gradient(135deg, #ef4444, #dc2626)' : 'linear-gradient(135deg, #3b82f6, #1d4ed8)'};
+        background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 
+                     type === 'error' ? 'linear-gradient(135deg, #ef4444, #dc2626)' : 
+                     'linear-gradient(135deg, #3b82f6, #1d4ed8)'};
         color: white;
         padding: 16px 20px;
         border-radius: 12px;
@@ -225,27 +227,45 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
-// Download CV function
+// Download CV function with error handling
 function downloadCV() {
-    // Create a temporary link element
-    const link = document.createElement('a');
-    link.href = './documents/Anusha_Manujaya_CV.pdf'; // Update with your actual CV path
-    link.download = 'Anusha_Manujaya_CV.pdf';
-    
-    // Trigger download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Show notification
-    showNotification('CV download started!', 'success');
+    try {
+        const link = document.createElement('a');
+        link.href = './documents/Anusha_Manujaya_CV.pdf';
+        link.download = 'Anusha_Manujaya_CV.pdf';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showNotification('CV download started!', 'success');
+    } catch (error) {
+        console.error('Error downloading CV:', error);
+        showNotification('Failed to download CV. Please try again.', 'error');
+    }
 }
 
-// Navbar scroll effect
+// Debounce function for scroll events
+function debounce(func, wait = 66, immediate = false) {
+    let timeout;
+    return function() {
+        const context = this, args = arguments;
+        const later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        const callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+}
+
+// Navbar scroll effect with debounce
 let lastScrollY = window.scrollY;
 const navbar = document.querySelector('.navbar');
 
-window.addEventListener('scroll', () => {
+window.addEventListener('scroll', debounce(() => {
     const currentScrollY = window.scrollY;
     
     if (currentScrollY > 100) {
@@ -278,19 +298,19 @@ window.addEventListener('scroll', () => {
     });
     
     lastScrollY = currentScrollY;
-});
+}));
 
-// Parallax effect for floating orbs
-window.addEventListener('scroll', () => {
+// Parallax effect for floating orbs with debounce
+window.addEventListener('scroll', debounce(() => {
     const scrolled = window.pageYOffset;
     const parallax = scrolled * 0.5;
     
     document.querySelector('.orb-1').style.transform = `translateY(${parallax}px) rotate(${scrolled * 0.1}deg)`;
     document.querySelector('.orb-2').style.transform = `translateY(${-parallax}px) rotate(${-scrolled * 0.1}deg)`;
     document.querySelector('.orb-3').style.transform = `translateY(${parallax * 0.8}px) rotate(${scrolled * 0.05}deg)`;
-});
+}));
 
-// Add hover effects to project cards
+// Hover effects for project cards
 document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('mouseenter', function() {
         this.style.transform = 'translateY(-10px) scale(1.02)';
@@ -301,7 +321,7 @@ document.querySelectorAll('.project-card').forEach(card => {
     });
 });
 
-// Add hover effects to skill items
+// Hover effects for skill items
 document.querySelectorAll('.skill-item').forEach(item => {
     item.addEventListener('mouseenter', function() {
         this.style.transform = 'translateY(-5px) rotate(5deg)';
@@ -312,7 +332,53 @@ document.querySelectorAll('.skill-item').forEach(item => {
     });
 });
 
-// Cursor following effect (optional enhancement)
+// Enhanced Certificate Modal functionality
+const certificateCards = document.querySelectorAll('.certificate-card');
+const modal = document.createElement('div');
+modal.className = 'certificate-modal';
+
+modal.innerHTML = `
+    <div class="certificate-modal-content">
+        <span class="close-modal">&times;</span>
+        <img src="" alt="Certificate" class="certificate-modal-img">
+    </div>
+`;
+
+document.body.appendChild(modal);
+
+certificateCards.forEach(card => {
+    const viewBtn = card.querySelector('.view-certificate-btn');
+    const imgSrc = card.querySelector('.certificate-image').src;
+    
+    viewBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.querySelector('.certificate-modal-img').src = imgSrc;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+});
+
+modal.querySelector('.close-modal').addEventListener('click', () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+});
+
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Cursor following effect
 const cursor = document.createElement('div');
 cursor.style.cssText = `
     position: fixed;
@@ -340,7 +406,7 @@ document.addEventListener('mouseenter', () => {
     cursor.style.opacity = '1';
 });
 
-// Add loading animation
+// Loading animation
 window.addEventListener('load', () => {
     const loader = document.createElement('div');
     loader.style.cssText = `
@@ -388,8 +454,8 @@ window.addEventListener('load', () => {
     }, 1500);
 });
 
-// Add smooth reveal animations for elements
-const revealElements = document.querySelectorAll('.project-card, .skill-item, .contact-item');
+// Smooth reveal animations for elements
+const revealElements = document.querySelectorAll('.project-card, .skill-item, .contact-item, .certificate-card');
 
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
@@ -409,7 +475,38 @@ revealElements.forEach(element => {
     revealObserver.observe(element);
 });
 
-// Add particle effect on button hover
+// View All Projects button functionality
+document.querySelector('#projects .btn-primary').addEventListener('click', (e) => {
+    e.preventDefault();
+    // Add your logic here - could be:
+    // - Redirect to a projects page
+    // - Show more projects in a modal
+    // - Expand the current section
+    console.log('View All Projects clicked');
+    showNotification('Redirecting to full projects page...', 'info');
+});
+
+// GitHub Profile button already works via href
+
+// View All Certificates button functionality
+document.querySelector('#certificates .btn-primary').addEventListener('click', (e) => {
+    e.preventDefault();
+    // Add your logic here
+    console.log('View All Certificates clicked');
+    showNotification('Showing all certificates...', 'info');
+});
+
+// Download Certificates button functionality
+document.querySelector('#certificates .btn-secondary').addEventListener('click', (e) => {
+    e.preventDefault();
+    // Add your logic here - could be:
+    // - Download a zip of certificates
+    // - Open a modal with download options
+    console.log('Download Certificates clicked');
+    showNotification('Preparing certificates for download...', 'info');
+});
+
+// Particle effect on button hover
 document.querySelectorAll('.btn').forEach(btn => {
     btn.addEventListener('mouseenter', function() {
         for (let i = 0; i < 6; i++) {
