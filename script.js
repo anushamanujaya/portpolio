@@ -1,3 +1,84 @@
+// View All Projects button functionality
+const viewAllProjectsBtn = document.getElementById('viewAllProjects');
+const moreProjectsSection = document.getElementById('moreProjects');
+
+viewAllProjectsBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    if (moreProjectsSection.classList.contains('hidden')) {
+        // Show more projects
+        moreProjectsSection.classList.remove('hidden');
+        moreProjectsSection.classList.add('show-more-content');
+        viewAllProjectsBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Show Less Projects';
+        viewAllProjectsBtn.classList.add('view-all-active');
+        
+        // Animate the new project cards in
+        const newProjectCards = moreProjectsSection.querySelectorAll('.project-card');
+        newProjectCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+        
+        showNotification('Showing all projects', 'success');
+    } else {
+        // Hide more projects
+        moreProjectsSection.classList.add('hidden');
+        moreProjectsSection.classList.remove('show-more-content');
+        viewAllProjectsBtn.innerHTML = '<i class="fas fa-eye"></i> View All Projects';
+        viewAllProjectsBtn.classList.remove('view-all-active');
+    }
+});
+
+// View All Certificates button functionality
+const viewAllCertificatesBtn = document.getElementById('viewAllCertificates');
+const moreCertificatesSection = document.getElementById('moreCertificates');
+
+viewAllCertificatesBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    if (moreCertificatesSection.classList.contains('hidden')) {
+        // Show more certificates
+        moreCertificatesSection.classList.remove('hidden');
+        moreCertificatesSection.classList.add('show-more-content');
+        viewAllCertificatesBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Show Less Certificates';
+        viewAllCertificatesBtn.classList.add('view-all-active');
+        
+        // Animate the new certificate cards in
+        const newCertificateCards = moreCertificatesSection.querySelectorAll('.certificate-card');
+        newCertificateCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+        
+        showNotification('Showing all certificates', 'success');
+    } else {
+        // Hide more certificates
+        moreCertificatesSection.classList.add('hidden');
+        moreCertificatesSection.classList.remove('show-more-content');
+        viewAllCertificatesBtn.innerHTML = '<i class="fas fa-certificate"></i> View All Certificates';
+        viewAllCertificatesBtn.classList.remove('view-all-active');
+    }
+});
+
+// Download Certificates button functionality
+document.getElementById('downloadCertificates').addEventListener('click', (e) => {
+    e.preventDefault();
+    showNotification('Preparing certificates for download...', 'info');
+    // In a real implementation, you would need a server-side component for this
+    // This is just a placeholder for the functionality
+    setTimeout(() => {
+        showNotification('Certificates are ready for download!', 'success');
+    }, 2000);
+});
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
@@ -231,7 +312,7 @@ function showNotification(message, type = 'info') {
 function downloadCV() {
     try {
         const link = document.createElement('a');
-        link.href = './documents/Anusha_Manujaya_CV.pdf';
+        link.href = './documents/ANUSHA_CV.pdf';
         link.download = 'Anusha_Manujaya_CV.pdf';
         
         document.body.appendChild(link);

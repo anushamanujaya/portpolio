@@ -808,3 +808,52 @@
         gap: 15px;
     }
 }
+
+/* Add these new styles to your existing styles.css */
+
+/* View All Toggle Styles */
+.hidden {
+    display: none;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.show-more-content {
+    display: grid;
+    opacity: 1;
+    max-height: 5000px;
+    animation: fadeInExpand 0.8s ease-out forwards;
+    margin-top: 30px;
+}
+
+.view-all-active {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: var(--shadow-glow);
+}
+
+.view-all-active:hover {
+    transform: none;
+    box-shadow: var(--shadow-glow);
+}
+
+/* Animations */
+@keyframes fadeInExpand {
+    from {
+        opacity: 0;
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: 5000px;
+    }
+}
+
+/* Additional responsive adjustments */
+@media (max-width: 768px) {
+    .show-more-content {
+        margin-top: 20px;
+    }
+}
